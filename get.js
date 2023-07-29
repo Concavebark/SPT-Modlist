@@ -23,15 +23,14 @@ let modCards = [];
 let vgmUrl= 'https://hub.sp-tarkov.com/files/?pageNo=NUMBER&sortField=time&sortOrder=DESC';
 const promises = [];
 
-function getMods() {
-
+function getMods(pages) {
   let page = 1;
+    
   vgmUrl = vgmUrl.replace("NUMBER", page);
-  for (let j = 0; j < 52; j++) {
+  for (let j = 0; j < pages; j++) {
   const promise = got(vgmUrl).then(response => {
       const dom = new JSDOM(response.body);
       var files = dom.window.document.getElementsByClassName("filebaseFile");
-      let pages = dom.window.document.getElementsByClassName("pagination")[0].getAttribute("data-pages");
 
       for (let i = 0; i < files.length; i++) {
         let name = files[i].getElementsByClassName("filebaseFileSubject")[0].textContent.replace(/\t/g, '').replace(/\n/g, '');
@@ -62,4 +61,14 @@ function getMods() {
   })
 }
 
-getMods();
+function getPages() {
+  let pages;
+  got(vgmUrl).then(response => {
+    const dom = new JSDOM(response.body);
+    pages = dom.window.document.getElementsByClassName("pagination")[0].getAttribute("data-pages");
+  }).then(() => {
+    getMods(pages);
+  })
+}
+
+getPages();
