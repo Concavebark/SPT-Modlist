@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "got": "^13.0.0",
+    "jQuery": "^1.7.4",
+    "jsdom": "^16.7.0",
+    "node": "^20.5.0",
+    "node-fetch": "^3.3.2",
+    "node-html-parser": "^6.1.5"
+  },
+  "type": "module",
+  "name": "spt-modlist",
+  "version": "1.0.0",
+  "main": "get.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
