@@ -3,13 +3,120 @@
   <head>
     <meta charset="UTF-8">
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <title>Hello World!</title>
+    <title>SPT Mod Manager</title>
+    <link rel="stylesheet" href="index.css">
+    
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <section>
+        <ol id="myList" class="filebaseFileList"></ol>
+        <script>
+          $(document).ready(function () {
+
+              // FETCHING DATA FROM JSON FILE
+              $.getJSON("data.json", 
+                      function (data) {
+                  var student = '';
+
+                  // ITERATING THROUGH OBJECTS
+                  $.each(data, function (key, value) {
+                    const card = document.createElement("li");
+                    card.className = 'filebaseFile';
+                    const wholeCard = document.createElement('div');
+                    wholeCard.className = 'filebaseFileCard';
+                    wholeCard.classList.add('new');
+                    const cardBody = document.createElement('a');
+                    cardBody.className = 'box128';
+                    cardBody.setAttribute('href', value.modLink);
+
+                    const imgDiv = document.createElement('div');
+                    imgDiv.className = 'filebaseFileIconContainer';
+                    const imgSpan = document.createElement("span");
+                    imgSpan.className = 'filebaseFileIcon';
+                    const img = document.createElement('img');
+                    if (value.modImg === "None") {
+                      img.classList.add('icon');
+                      img.classList.add('icon128');
+                      img.classList.add('fa-file-o'); 
+                    } else {img.setAttribute("src", value.modImg)}
+                    img.setAttribute('style', "width: 128px; height: 128px;")
+                    imgSpan.appendChild(img);
+                    imgDiv.appendChild(imgSpan);
+
+                    const dataDiv = document.createElement('div');
+                    dataDiv.className = 'filebaseFileDataContainer';
+                    const headline = document.createElement('div');
+                    headline.className = 'containerHeadline';
+                    const modName = document.createElement('h3');
+                    modName.className = 'filebaseFileSubject'
+                    const nameSpan = document.createElement('span');
+                    nameSpan.innerText = value.modName;
+                    
+                    modName.appendChild(nameSpan);
+                    headline.appendChild(modName);
+                    dataDiv.appendChild(headline);
+
+
+                    const metaData = document.createElement('ul');
+                    metaData.classList.add('inlineList');
+                    metaData.classList.add('dotSeparated');
+                    metaData.classList.add('filebaseFileMetaData');
+                    const author = document.createElement('li');
+                    author.innerText = value.modAuth;
+                    
+                    const dateContain = document.createElement('li');
+                    const date = document.createElement('time'); // supposed to be time element
+                    date.className = 'datetime';
+                    date.setAttribute('datetime', value.modDateTime)
+                    date.setAttribute('data-date', value.dataDate);
+                    date.setAttribute('data-time', value.dataTime);
+                    date.setAttribute('data-offset', value.dataOffset);
+                    date.setAttribute('title', value.title);
+                    date.innerText = value.displayedTime;
+                    dateContain.appendChild(date);
+
+                    const rating = document.createElement('li');
+                    rating.className = 'filebaseFileRating';
+                    rating.innerText = value.modRating + " Stars";
+
+                    
+                    metaData.appendChild(author);
+                    metaData.appendChild(dateContain);
+                    metaData.appendChild(rating);
+                    headline.appendChild(metaData);
+
+                    const labelList = document.createElement('ul');
+                    labelList.className = 'labelList';
+                    const badge = document.createElement('li');
+                    badge.classList.add('badge');
+                    badge.innerText = value.modSupVer;
+
+                    labelList.appendChild(badge);
+                    headline.appendChild(labelList);
+
+                    const fileTeaser = document.createElement('div');
+                    fileTeaser.classList.add('containerContent');
+                    fileTeaser.classList.add('filebaseFileTeaser');
+                    fileTeaser.innerText = value.modDesc;
+
+                    dataDiv.appendChild(fileTeaser);
+
+                    const footer = document.createElement('div');
+                    footer.className = 'filebaseFileFooter';
+                    
+                    cardBody.appendChild(imgDiv);
+                    cardBody.appendChild(dataDiv);
+                    wholeCard.appendChild(cardBody);
+                    wholeCard.appendChild(footer);
+                    card.appendChild(wholeCard);
+                    document.getElementById('myList').appendChild(card);
+                    console.log(value);
+                  });
+                    
+              });
+          });
+      </script>
+    </section>
   </body>
 </html>
