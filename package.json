@@ -4,7 +4,8 @@
     "got-cjs": "^12.5.4",
     "jQuery": "^1.7.4",
     "jsdom": "^16.7.0",
-    "node": "^20.5.0"
+    "node": "^20.5.0",
+    "react": "^18.2.0"
   },
   "type": "commonjs",
   "name": "spt-modlist",
