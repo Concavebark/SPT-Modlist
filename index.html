@@ -12,7 +12,6 @@
       <h1>SPT Modlist</h1>
     </section>
     <section>
-      <button id="send">Update ModList</button>
       <ol id="myList" class="filebaseFileList"></ol>
       
       <script src="./renderer.js"></script>
@@ -70,7 +69,7 @@
                   author.innerText = value.modAuth;
                   
                   const dateContain = document.createElement('li');
-                  const date = document.createElement('time'); // supposed to be time element
+                  const date = document.createElement('time'); 
                   date.className = 'datetime';
                   date.setAttribute('datetime', value.modDateTime)
                   date.setAttribute('data-date', value.dataDate);
