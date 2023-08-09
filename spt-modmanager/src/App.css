@@ -1,0 +1,17 @@
+.fileData {
+  background-color: gray;
+  display: inline-block;
+  border: 3px solid #000000;
+}
+
+.modHeader {
+  display: flex;
+  align-items: center;
+}
+
+.fileContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  align-items: stretch;
+}
